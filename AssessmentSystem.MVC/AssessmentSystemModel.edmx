@@ -1,0 +1,831 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="AssessmentSystemModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Assessment">
+          <Key>
+            <PropertyRef Name="AssessmentId" />
+          </Key>
+          <Property Name="AssessmentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="RegisterDate" Type="datetime" Nullable="false" />
+          <Property Name="ProfessorId" Type="int" Nullable="false" />
+          <Property Name="QuestionnarieId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="PersonId" />
+          </Key>
+          <Property Name="PersonId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="CPF" Type="varchar" MaxLength="11" Nullable="false" />
+          <Property Name="RegisterDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Professor">
+          <Key>
+            <PropertyRef Name="ProfessorId" />
+          </Key>
+          <Property Name="ProfessorId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PersonId" Type="int" Nullable="false" />
+          <Property Name="RegisterDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Question">
+          <Key>
+            <PropertyRef Name="QuestionId" />
+          </Key>
+          <Property Name="QuestionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="RegisterDate" Type="datetime" Nullable="false" />
+          <Property Name="ProfessorId" Type="int" Nullable="false" />
+          <Property Name="QuestionnarieId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Questionnarie">
+          <Key>
+            <PropertyRef Name="QuestionnarieId" />
+          </Key>
+          <Property Name="QuestionnarieId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="RegisterDate" Type="datetime" Nullable="false" />
+          <Property Name="ProfessorId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="QuestionOption">
+          <Key>
+            <PropertyRef Name="QuestionOptionId" />
+          </Key>
+          <Property Name="QuestionOptionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="IsCorrect" Type="bit" />
+          <Property Name="RegisterDate" Type="datetime" Nullable="false" />
+          <Property Name="ProfessorId" Type="int" Nullable="false" />
+          <Property Name="QuestionId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="StudentId" />
+          </Key>
+          <Property Name="StudentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PersonId" Type="int" Nullable="false" />
+          <Property Name="RegisterDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="StudentAssessment">
+          <Key>
+            <PropertyRef Name="StudentAssessmentId" />
+          </Key>
+          <Property Name="StudentAssessmentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AssessmentId" Type="int" Nullable="false" />
+          <Property Name="StudentId" Type="int" Nullable="false" />
+          <Property Name="StartDate" Type="datetime" />
+          <Property Name="EndDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="StudentAssessmentAnswer">
+          <Key>
+            <PropertyRef Name="StudentAssessmentAnswerId" />
+          </Key>
+          <Property Name="StudentAssessmentAnswerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StudentAssessmentId" Type="int" Nullable="false" />
+          <Property Name="RegisterDate" Type="datetime" Nullable="false" />
+          <Property Name="QuestionOptionId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="StudentAssessmentPerformance">
+          <Key>
+            <PropertyRef Name="StudentAssessmentPerformanceId" />
+          </Key>
+          <Property Name="StudentAssessmentPerformanceId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StudentAssessmentId" Type="int" Nullable="false" />
+          <Property Name="Grade" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="RegisterDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Assessmen__Quest__36B12243">
+          <End Role="Professor" Type="Self.Professor" Multiplicity="1" />
+          <End Role="Assessment" Type="Self.Assessment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Professor">
+              <PropertyRef Name="ProfessorId" />
+            </Principal>
+            <Dependent Role="Assessment">
+              <PropertyRef Name="ProfessorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Assessmen__Quest__37A5467C">
+          <End Role="Questionnarie" Type="Self.Questionnarie" Multiplicity="1" />
+          <End Role="Assessment" Type="Self.Assessment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Questionnarie">
+              <PropertyRef Name="QuestionnarieId" />
+            </Principal>
+            <Dependent Role="Assessment">
+              <PropertyRef Name="QuestionnarieId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Professor__Regis__29572725">
+          <End Role="Person" Type="Self.Person" Multiplicity="1" />
+          <End Role="Professor" Type="Self.Professor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="PersonId" />
+            </Principal>
+            <Dependent Role="Professor">
+              <PropertyRef Name="PersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Question__Questi__2F10007B">
+          <End Role="Professor" Type="Self.Professor" Multiplicity="1" />
+          <End Role="Question" Type="Self.Question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Professor">
+              <PropertyRef Name="ProfessorId" />
+            </Principal>
+            <Dependent Role="Question">
+              <PropertyRef Name="ProfessorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Question__Questi__300424B4">
+          <End Role="Questionnarie" Type="Self.Questionnarie" Multiplicity="1" />
+          <End Role="Question" Type="Self.Question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Questionnarie">
+              <PropertyRef Name="QuestionnarieId" />
+            </Principal>
+            <Dependent Role="Question">
+              <PropertyRef Name="QuestionnarieId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Questionn__Profe__2C3393D0">
+          <End Role="Professor" Type="Self.Professor" Multiplicity="1" />
+          <End Role="Questionnarie" Type="Self.Questionnarie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Professor">
+              <PropertyRef Name="ProfessorId" />
+            </Principal>
+            <Dependent Role="Questionnarie">
+              <PropertyRef Name="ProfessorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__QuestionO__Quest__32E0915F">
+          <End Role="Professor" Type="Self.Professor" Multiplicity="1" />
+          <End Role="QuestionOption" Type="Self.QuestionOption" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Professor">
+              <PropertyRef Name="ProfessorId" />
+            </Principal>
+            <Dependent Role="QuestionOption">
+              <PropertyRef Name="ProfessorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__QuestionO__Quest__33D4B598">
+          <End Role="Question" Type="Self.Question" Multiplicity="1" />
+          <End Role="QuestionOption" Type="Self.QuestionOption" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Question">
+              <PropertyRef Name="QuestionId" />
+            </Principal>
+            <Dependent Role="QuestionOption">
+              <PropertyRef Name="QuestionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Student__Registe__267ABA7A">
+          <End Role="Person" Type="Self.Person" Multiplicity="1" />
+          <End Role="Student" Type="Self.Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="PersonId" />
+            </Principal>
+            <Dependent Role="Student">
+              <PropertyRef Name="PersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__StudentAs__EndDa__3B75D760">
+          <End Role="Assessment" Type="Self.Assessment" Multiplicity="1" />
+          <End Role="StudentAssessment" Type="Self.StudentAssessment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Assessment">
+              <PropertyRef Name="AssessmentId" />
+            </Principal>
+            <Dependent Role="StudentAssessment">
+              <PropertyRef Name="AssessmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__StudentAs__Quest__3F466844">
+          <End Role="StudentAssessment" Type="Self.StudentAssessment" Multiplicity="1" />
+          <End Role="StudentAssessmentAnswer" Type="Self.StudentAssessmentAnswer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StudentAssessment">
+              <PropertyRef Name="StudentAssessmentId" />
+            </Principal>
+            <Dependent Role="StudentAssessmentAnswer">
+              <PropertyRef Name="StudentAssessmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__StudentAs__Quest__403A8C7D">
+          <End Role="QuestionOption" Type="Self.QuestionOption" Multiplicity="1" />
+          <End Role="StudentAssessmentAnswer" Type="Self.StudentAssessmentAnswer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QuestionOption">
+              <PropertyRef Name="QuestionOptionId" />
+            </Principal>
+            <Dependent Role="StudentAssessmentAnswer">
+              <PropertyRef Name="QuestionOptionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__StudentAs__Regis__4316F928">
+          <End Role="StudentAssessment" Type="Self.StudentAssessment" Multiplicity="1" />
+          <End Role="StudentAssessmentPerformance" Type="Self.StudentAssessmentPerformance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StudentAssessment">
+              <PropertyRef Name="StudentAssessmentId" />
+            </Principal>
+            <Dependent Role="StudentAssessmentPerformance">
+              <PropertyRef Name="StudentAssessmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__StudentAs__Stude__3C69FB99">
+          <End Role="Student" Type="Self.Student" Multiplicity="1" />
+          <End Role="StudentAssessment" Type="Self.StudentAssessment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="StudentId" />
+            </Principal>
+            <Dependent Role="StudentAssessment">
+              <PropertyRef Name="StudentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AssessmentSystemModelStoreContainer">
+          <EntitySet Name="Assessment" EntityType="Self.Assessment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Person" EntityType="Self.Person" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Professor" EntityType="Self.Professor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Question" EntityType="Self.Question" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Questionnarie" EntityType="Self.Questionnarie" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="QuestionOption" EntityType="Self.QuestionOption" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Student" EntityType="Self.Student" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StudentAssessment" EntityType="Self.StudentAssessment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StudentAssessmentAnswer" EntityType="Self.StudentAssessmentAnswer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StudentAssessmentPerformance" EntityType="Self.StudentAssessmentPerformance" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Assessmen__Quest__36B12243" Association="Self.FK__Assessmen__Quest__36B12243">
+            <End Role="Professor" EntitySet="Professor" />
+            <End Role="Assessment" EntitySet="Assessment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Assessmen__Quest__37A5467C" Association="Self.FK__Assessmen__Quest__37A5467C">
+            <End Role="Questionnarie" EntitySet="Questionnarie" />
+            <End Role="Assessment" EntitySet="Assessment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Professor__Regis__29572725" Association="Self.FK__Professor__Regis__29572725">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="Professor" EntitySet="Professor" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Question__Questi__2F10007B" Association="Self.FK__Question__Questi__2F10007B">
+            <End Role="Professor" EntitySet="Professor" />
+            <End Role="Question" EntitySet="Question" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Question__Questi__300424B4" Association="Self.FK__Question__Questi__300424B4">
+            <End Role="Questionnarie" EntitySet="Questionnarie" />
+            <End Role="Question" EntitySet="Question" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Questionn__Profe__2C3393D0" Association="Self.FK__Questionn__Profe__2C3393D0">
+            <End Role="Professor" EntitySet="Professor" />
+            <End Role="Questionnarie" EntitySet="Questionnarie" />
+          </AssociationSet>
+          <AssociationSet Name="FK__QuestionO__Quest__32E0915F" Association="Self.FK__QuestionO__Quest__32E0915F">
+            <End Role="Professor" EntitySet="Professor" />
+            <End Role="QuestionOption" EntitySet="QuestionOption" />
+          </AssociationSet>
+          <AssociationSet Name="FK__QuestionO__Quest__33D4B598" Association="Self.FK__QuestionO__Quest__33D4B598">
+            <End Role="Question" EntitySet="Question" />
+            <End Role="QuestionOption" EntitySet="QuestionOption" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Student__Registe__267ABA7A" Association="Self.FK__Student__Registe__267ABA7A">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="Student" EntitySet="Student" />
+          </AssociationSet>
+          <AssociationSet Name="FK__StudentAs__EndDa__3B75D760" Association="Self.FK__StudentAs__EndDa__3B75D760">
+            <End Role="Assessment" EntitySet="Assessment" />
+            <End Role="StudentAssessment" EntitySet="StudentAssessment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__StudentAs__Quest__3F466844" Association="Self.FK__StudentAs__Quest__3F466844">
+            <End Role="StudentAssessment" EntitySet="StudentAssessment" />
+            <End Role="StudentAssessmentAnswer" EntitySet="StudentAssessmentAnswer" />
+          </AssociationSet>
+          <AssociationSet Name="FK__StudentAs__Quest__403A8C7D" Association="Self.FK__StudentAs__Quest__403A8C7D">
+            <End Role="QuestionOption" EntitySet="QuestionOption" />
+            <End Role="StudentAssessmentAnswer" EntitySet="StudentAssessmentAnswer" />
+          </AssociationSet>
+          <AssociationSet Name="FK__StudentAs__Regis__4316F928" Association="Self.FK__StudentAs__Regis__4316F928">
+            <End Role="StudentAssessment" EntitySet="StudentAssessment" />
+            <End Role="StudentAssessmentPerformance" EntitySet="StudentAssessmentPerformance" />
+          </AssociationSet>
+          <AssociationSet Name="FK__StudentAs__Stude__3C69FB99" Association="Self.FK__StudentAs__Stude__3C69FB99">
+            <End Role="Student" EntitySet="Student" />
+            <End Role="StudentAssessment" EntitySet="StudentAssessment" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AssessmentSystemModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Assessment">
+          <Key>
+            <PropertyRef Name="AssessmentId" />
+          </Key>
+          <Property Name="AssessmentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RegisterDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ProfessorId" Type="Int32" Nullable="false" />
+          <Property Name="QuestionnarieId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Professor" Relationship="Self.FK__Assessmen__Quest__36B12243" FromRole="Assessment" ToRole="Professor" />
+          <NavigationProperty Name="Questionnarie" Relationship="Self.FK__Assessmen__Quest__37A5467C" FromRole="Assessment" ToRole="Questionnarie" />
+          <NavigationProperty Name="StudentAssessments" Relationship="Self.FK__StudentAs__EndDa__3B75D760" FromRole="Assessment" ToRole="StudentAssessment" />
+        </EntityType>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="PersonId" />
+          </Key>
+          <Property Name="PersonId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CPF" Type="String" MaxLength="11" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RegisterDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Professors" Relationship="Self.FK__Professor__Regis__29572725" FromRole="Person" ToRole="Professor" />
+          <NavigationProperty Name="Students" Relationship="Self.FK__Student__Registe__267ABA7A" FromRole="Person" ToRole="Student" />
+        </EntityType>
+        <EntityType Name="Professor">
+          <Key>
+            <PropertyRef Name="ProfessorId" />
+          </Key>
+          <Property Name="ProfessorId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PersonId" Type="Int32" Nullable="false" />
+          <Property Name="RegisterDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Assessments" Relationship="Self.FK__Assessmen__Quest__36B12243" FromRole="Professor" ToRole="Assessment" />
+          <NavigationProperty Name="Person" Relationship="Self.FK__Professor__Regis__29572725" FromRole="Professor" ToRole="Person" />
+          <NavigationProperty Name="Questions" Relationship="Self.FK__Question__Questi__2F10007B" FromRole="Professor" ToRole="Question" />
+          <NavigationProperty Name="Questionnaries" Relationship="Self.FK__Questionn__Profe__2C3393D0" FromRole="Professor" ToRole="Questionnarie" />
+          <NavigationProperty Name="QuestionOptions" Relationship="Self.FK__QuestionO__Quest__32E0915F" FromRole="Professor" ToRole="QuestionOption" />
+        </EntityType>
+        <EntityType Name="Question">
+          <Key>
+            <PropertyRef Name="QuestionId" />
+          </Key>
+          <Property Name="QuestionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RegisterDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ProfessorId" Type="Int32" Nullable="false" />
+          <Property Name="QuestionnarieId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Professor" Relationship="Self.FK__Question__Questi__2F10007B" FromRole="Question" ToRole="Professor" />
+          <NavigationProperty Name="Questionnarie" Relationship="Self.FK__Question__Questi__300424B4" FromRole="Question" ToRole="Questionnarie" />
+          <NavigationProperty Name="QuestionOptions" Relationship="Self.FK__QuestionO__Quest__33D4B598" FromRole="Question" ToRole="QuestionOption" />
+        </EntityType>
+        <EntityType Name="Questionnarie">
+          <Key>
+            <PropertyRef Name="QuestionnarieId" />
+          </Key>
+          <Property Name="QuestionnarieId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RegisterDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ProfessorId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Assessments" Relationship="Self.FK__Assessmen__Quest__37A5467C" FromRole="Questionnarie" ToRole="Assessment" />
+          <NavigationProperty Name="Professor" Relationship="Self.FK__Questionn__Profe__2C3393D0" FromRole="Questionnarie" ToRole="Professor" />
+          <NavigationProperty Name="Questions" Relationship="Self.FK__Question__Questi__300424B4" FromRole="Questionnarie" ToRole="Question" />
+        </EntityType>
+        <EntityType Name="QuestionOption">
+          <Key>
+            <PropertyRef Name="QuestionOptionId" />
+          </Key>
+          <Property Name="QuestionOptionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IsCorrect" Type="Boolean" />
+          <Property Name="RegisterDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ProfessorId" Type="Int32" Nullable="false" />
+          <Property Name="QuestionId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Professor" Relationship="Self.FK__QuestionO__Quest__32E0915F" FromRole="QuestionOption" ToRole="Professor" />
+          <NavigationProperty Name="Question" Relationship="Self.FK__QuestionO__Quest__33D4B598" FromRole="QuestionOption" ToRole="Question" />
+          <NavigationProperty Name="StudentAssessmentAnswers" Relationship="Self.FK__StudentAs__Quest__403A8C7D" FromRole="QuestionOption" ToRole="StudentAssessmentAnswer" />
+        </EntityType>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="StudentId" />
+          </Key>
+          <Property Name="StudentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PersonId" Type="Int32" Nullable="false" />
+          <Property Name="RegisterDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Person" Relationship="Self.FK__Student__Registe__267ABA7A" FromRole="Student" ToRole="Person" />
+          <NavigationProperty Name="StudentAssessments" Relationship="Self.FK__StudentAs__Stude__3C69FB99" FromRole="Student" ToRole="StudentAssessment" />
+        </EntityType>
+        <EntityType Name="StudentAssessment">
+          <Key>
+            <PropertyRef Name="StudentAssessmentId" />
+          </Key>
+          <Property Name="StudentAssessmentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AssessmentId" Type="Int32" Nullable="false" />
+          <Property Name="StudentId" Type="Int32" Nullable="false" />
+          <Property Name="StartDate" Type="DateTime" Precision="3" />
+          <Property Name="EndDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Assessment" Relationship="Self.FK__StudentAs__EndDa__3B75D760" FromRole="StudentAssessment" ToRole="Assessment" />
+          <NavigationProperty Name="Student" Relationship="Self.FK__StudentAs__Stude__3C69FB99" FromRole="StudentAssessment" ToRole="Student" />
+          <NavigationProperty Name="StudentAssessmentAnswers" Relationship="Self.FK__StudentAs__Quest__3F466844" FromRole="StudentAssessment" ToRole="StudentAssessmentAnswer" />
+          <NavigationProperty Name="StudentAssessmentPerformances" Relationship="Self.FK__StudentAs__Regis__4316F928" FromRole="StudentAssessment" ToRole="StudentAssessmentPerformance" />
+        </EntityType>
+        <EntityType Name="StudentAssessmentAnswer">
+          <Key>
+            <PropertyRef Name="StudentAssessmentAnswerId" />
+          </Key>
+          <Property Name="StudentAssessmentAnswerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StudentAssessmentId" Type="Int32" Nullable="false" />
+          <Property Name="RegisterDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="QuestionOptionId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="QuestionOption" Relationship="Self.FK__StudentAs__Quest__403A8C7D" FromRole="StudentAssessmentAnswer" ToRole="QuestionOption" />
+          <NavigationProperty Name="StudentAssessment" Relationship="Self.FK__StudentAs__Quest__3F466844" FromRole="StudentAssessmentAnswer" ToRole="StudentAssessment" />
+        </EntityType>
+        <EntityType Name="StudentAssessmentPerformance">
+          <Key>
+            <PropertyRef Name="StudentAssessmentPerformanceId" />
+          </Key>
+          <Property Name="StudentAssessmentPerformanceId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StudentAssessmentId" Type="Int32" Nullable="false" />
+          <Property Name="Grade" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="RegisterDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="StudentAssessment" Relationship="Self.FK__StudentAs__Regis__4316F928" FromRole="StudentAssessmentPerformance" ToRole="StudentAssessment" />
+        </EntityType>
+        <Association Name="FK__Assessmen__Quest__36B12243">
+          <End Role="Professor" Type="Self.Professor" Multiplicity="1" />
+          <End Role="Assessment" Type="Self.Assessment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Professor">
+              <PropertyRef Name="ProfessorId" />
+            </Principal>
+            <Dependent Role="Assessment">
+              <PropertyRef Name="ProfessorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Assessmen__Quest__37A5467C">
+          <End Role="Questionnarie" Type="Self.Questionnarie" Multiplicity="1" />
+          <End Role="Assessment" Type="Self.Assessment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Questionnarie">
+              <PropertyRef Name="QuestionnarieId" />
+            </Principal>
+            <Dependent Role="Assessment">
+              <PropertyRef Name="QuestionnarieId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__StudentAs__EndDa__3B75D760">
+          <End Role="Assessment" Type="Self.Assessment" Multiplicity="1" />
+          <End Role="StudentAssessment" Type="Self.StudentAssessment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Assessment">
+              <PropertyRef Name="AssessmentId" />
+            </Principal>
+            <Dependent Role="StudentAssessment">
+              <PropertyRef Name="AssessmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Professor__Regis__29572725">
+          <End Role="Person" Type="Self.Person" Multiplicity="1" />
+          <End Role="Professor" Type="Self.Professor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="PersonId" />
+            </Principal>
+            <Dependent Role="Professor">
+              <PropertyRef Name="PersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Student__Registe__267ABA7A">
+          <End Role="Person" Type="Self.Person" Multiplicity="1" />
+          <End Role="Student" Type="Self.Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="PersonId" />
+            </Principal>
+            <Dependent Role="Student">
+              <PropertyRef Name="PersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Question__Questi__2F10007B">
+          <End Role="Professor" Type="Self.Professor" Multiplicity="1" />
+          <End Role="Question" Type="Self.Question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Professor">
+              <PropertyRef Name="ProfessorId" />
+            </Principal>
+            <Dependent Role="Question">
+              <PropertyRef Name="ProfessorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Questionn__Profe__2C3393D0">
+          <End Role="Professor" Type="Self.Professor" Multiplicity="1" />
+          <End Role="Questionnarie" Type="Self.Questionnarie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Professor">
+              <PropertyRef Name="ProfessorId" />
+            </Principal>
+            <Dependent Role="Questionnarie">
+              <PropertyRef Name="ProfessorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__QuestionO__Quest__32E0915F">
+          <End Role="Professor" Type="Self.Professor" Multiplicity="1" />
+          <End Role="QuestionOption" Type="Self.QuestionOption" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Professor">
+              <PropertyRef Name="ProfessorId" />
+            </Principal>
+            <Dependent Role="QuestionOption">
+              <PropertyRef Name="ProfessorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Question__Questi__300424B4">
+          <End Role="Questionnarie" Type="Self.Questionnarie" Multiplicity="1" />
+          <End Role="Question" Type="Self.Question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Questionnarie">
+              <PropertyRef Name="QuestionnarieId" />
+            </Principal>
+            <Dependent Role="Question">
+              <PropertyRef Name="QuestionnarieId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__QuestionO__Quest__33D4B598">
+          <End Role="Question" Type="Self.Question" Multiplicity="1" />
+          <End Role="QuestionOption" Type="Self.QuestionOption" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Question">
+              <PropertyRef Name="QuestionId" />
+            </Principal>
+            <Dependent Role="QuestionOption">
+              <PropertyRef Name="QuestionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__StudentAs__Quest__403A8C7D">
+          <End Role="QuestionOption" Type="Self.QuestionOption" Multiplicity="1" />
+          <End Role="StudentAssessmentAnswer" Type="Self.StudentAssessmentAnswer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QuestionOption">
+              <PropertyRef Name="QuestionOptionId" />
+            </Principal>
+            <Dependent Role="StudentAssessmentAnswer">
+              <PropertyRef Name="QuestionOptionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__StudentAs__Stude__3C69FB99">
+          <End Role="Student" Type="Self.Student" Multiplicity="1" />
+          <End Role="StudentAssessment" Type="Self.StudentAssessment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="StudentId" />
+            </Principal>
+            <Dependent Role="StudentAssessment">
+              <PropertyRef Name="StudentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__StudentAs__Quest__3F466844">
+          <End Role="StudentAssessment" Type="Self.StudentAssessment" Multiplicity="1" />
+          <End Role="StudentAssessmentAnswer" Type="Self.StudentAssessmentAnswer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StudentAssessment">
+              <PropertyRef Name="StudentAssessmentId" />
+            </Principal>
+            <Dependent Role="StudentAssessmentAnswer">
+              <PropertyRef Name="StudentAssessmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__StudentAs__Regis__4316F928">
+          <End Role="StudentAssessment" Type="Self.StudentAssessment" Multiplicity="1" />
+          <End Role="StudentAssessmentPerformance" Type="Self.StudentAssessmentPerformance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StudentAssessment">
+              <PropertyRef Name="StudentAssessmentId" />
+            </Principal>
+            <Dependent Role="StudentAssessmentPerformance">
+              <PropertyRef Name="StudentAssessmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AssessmentSystemEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Assessments" EntityType="Self.Assessment" />
+          <EntitySet Name="People" EntityType="Self.Person" />
+          <EntitySet Name="Professors" EntityType="Self.Professor" />
+          <EntitySet Name="Questions" EntityType="Self.Question" />
+          <EntitySet Name="Questionnaries" EntityType="Self.Questionnarie" />
+          <EntitySet Name="QuestionOptions" EntityType="Self.QuestionOption" />
+          <EntitySet Name="Students" EntityType="Self.Student" />
+          <EntitySet Name="StudentAssessments" EntityType="Self.StudentAssessment" />
+          <EntitySet Name="StudentAssessmentAnswers" EntityType="Self.StudentAssessmentAnswer" />
+          <EntitySet Name="StudentAssessmentPerformances" EntityType="Self.StudentAssessmentPerformance" />
+          <AssociationSet Name="FK__Assessmen__Quest__36B12243" Association="Self.FK__Assessmen__Quest__36B12243">
+            <End Role="Professor" EntitySet="Professors" />
+            <End Role="Assessment" EntitySet="Assessments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Assessmen__Quest__37A5467C" Association="Self.FK__Assessmen__Quest__37A5467C">
+            <End Role="Questionnarie" EntitySet="Questionnaries" />
+            <End Role="Assessment" EntitySet="Assessments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__StudentAs__EndDa__3B75D760" Association="Self.FK__StudentAs__EndDa__3B75D760">
+            <End Role="Assessment" EntitySet="Assessments" />
+            <End Role="StudentAssessment" EntitySet="StudentAssessments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Professor__Regis__29572725" Association="Self.FK__Professor__Regis__29572725">
+            <End Role="Person" EntitySet="People" />
+            <End Role="Professor" EntitySet="Professors" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Student__Registe__267ABA7A" Association="Self.FK__Student__Registe__267ABA7A">
+            <End Role="Person" EntitySet="People" />
+            <End Role="Student" EntitySet="Students" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Question__Questi__2F10007B" Association="Self.FK__Question__Questi__2F10007B">
+            <End Role="Professor" EntitySet="Professors" />
+            <End Role="Question" EntitySet="Questions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Questionn__Profe__2C3393D0" Association="Self.FK__Questionn__Profe__2C3393D0">
+            <End Role="Professor" EntitySet="Professors" />
+            <End Role="Questionnarie" EntitySet="Questionnaries" />
+          </AssociationSet>
+          <AssociationSet Name="FK__QuestionO__Quest__32E0915F" Association="Self.FK__QuestionO__Quest__32E0915F">
+            <End Role="Professor" EntitySet="Professors" />
+            <End Role="QuestionOption" EntitySet="QuestionOptions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Question__Questi__300424B4" Association="Self.FK__Question__Questi__300424B4">
+            <End Role="Questionnarie" EntitySet="Questionnaries" />
+            <End Role="Question" EntitySet="Questions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__QuestionO__Quest__33D4B598" Association="Self.FK__QuestionO__Quest__33D4B598">
+            <End Role="Question" EntitySet="Questions" />
+            <End Role="QuestionOption" EntitySet="QuestionOptions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__StudentAs__Quest__403A8C7D" Association="Self.FK__StudentAs__Quest__403A8C7D">
+            <End Role="QuestionOption" EntitySet="QuestionOptions" />
+            <End Role="StudentAssessmentAnswer" EntitySet="StudentAssessmentAnswers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__StudentAs__Stude__3C69FB99" Association="Self.FK__StudentAs__Stude__3C69FB99">
+            <End Role="Student" EntitySet="Students" />
+            <End Role="StudentAssessment" EntitySet="StudentAssessments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__StudentAs__Quest__3F466844" Association="Self.FK__StudentAs__Quest__3F466844">
+            <End Role="StudentAssessment" EntitySet="StudentAssessments" />
+            <End Role="StudentAssessmentAnswer" EntitySet="StudentAssessmentAnswers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__StudentAs__Regis__4316F928" Association="Self.FK__StudentAs__Regis__4316F928">
+            <End Role="StudentAssessment" EntitySet="StudentAssessments" />
+            <End Role="StudentAssessmentPerformance" EntitySet="StudentAssessmentPerformances" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="AssessmentSystemModelStoreContainer" CdmEntityContainer="AssessmentSystemEntities">
+          <EntitySetMapping Name="Assessments">
+            <EntityTypeMapping TypeName="AssessmentSystemModel.Assessment">
+              <MappingFragment StoreEntitySet="Assessment">
+                <ScalarProperty Name="AssessmentId" ColumnName="AssessmentId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="RegisterDate" ColumnName="RegisterDate" />
+                <ScalarProperty Name="ProfessorId" ColumnName="ProfessorId" />
+                <ScalarProperty Name="QuestionnarieId" ColumnName="QuestionnarieId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="People">
+            <EntityTypeMapping TypeName="AssessmentSystemModel.Person">
+              <MappingFragment StoreEntitySet="Person">
+                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="CPF" ColumnName="CPF" />
+                <ScalarProperty Name="RegisterDate" ColumnName="RegisterDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Professors">
+            <EntityTypeMapping TypeName="AssessmentSystemModel.Professor">
+              <MappingFragment StoreEntitySet="Professor">
+                <ScalarProperty Name="ProfessorId" ColumnName="ProfessorId" />
+                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+                <ScalarProperty Name="RegisterDate" ColumnName="RegisterDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Questions">
+            <EntityTypeMapping TypeName="AssessmentSystemModel.Question">
+              <MappingFragment StoreEntitySet="Question">
+                <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="RegisterDate" ColumnName="RegisterDate" />
+                <ScalarProperty Name="ProfessorId" ColumnName="ProfessorId" />
+                <ScalarProperty Name="QuestionnarieId" ColumnName="QuestionnarieId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Questionnaries">
+            <EntityTypeMapping TypeName="AssessmentSystemModel.Questionnarie">
+              <MappingFragment StoreEntitySet="Questionnarie">
+                <ScalarProperty Name="QuestionnarieId" ColumnName="QuestionnarieId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="RegisterDate" ColumnName="RegisterDate" />
+                <ScalarProperty Name="ProfessorId" ColumnName="ProfessorId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="QuestionOptions">
+            <EntityTypeMapping TypeName="AssessmentSystemModel.QuestionOption">
+              <MappingFragment StoreEntitySet="QuestionOption">
+                <ScalarProperty Name="QuestionOptionId" ColumnName="QuestionOptionId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="IsCorrect" ColumnName="IsCorrect" />
+                <ScalarProperty Name="RegisterDate" ColumnName="RegisterDate" />
+                <ScalarProperty Name="ProfessorId" ColumnName="ProfessorId" />
+                <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Students">
+            <EntityTypeMapping TypeName="AssessmentSystemModel.Student">
+              <MappingFragment StoreEntitySet="Student">
+                <ScalarProperty Name="StudentId" ColumnName="StudentId" />
+                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+                <ScalarProperty Name="RegisterDate" ColumnName="RegisterDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StudentAssessments">
+            <EntityTypeMapping TypeName="AssessmentSystemModel.StudentAssessment">
+              <MappingFragment StoreEntitySet="StudentAssessment">
+                <ScalarProperty Name="StudentAssessmentId" ColumnName="StudentAssessmentId" />
+                <ScalarProperty Name="AssessmentId" ColumnName="AssessmentId" />
+                <ScalarProperty Name="StudentId" ColumnName="StudentId" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StudentAssessmentAnswers">
+            <EntityTypeMapping TypeName="AssessmentSystemModel.StudentAssessmentAnswer">
+              <MappingFragment StoreEntitySet="StudentAssessmentAnswer">
+                <ScalarProperty Name="StudentAssessmentAnswerId" ColumnName="StudentAssessmentAnswerId" />
+                <ScalarProperty Name="StudentAssessmentId" ColumnName="StudentAssessmentId" />
+                <ScalarProperty Name="RegisterDate" ColumnName="RegisterDate" />
+                <ScalarProperty Name="QuestionOptionId" ColumnName="QuestionOptionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StudentAssessmentPerformances">
+            <EntityTypeMapping TypeName="AssessmentSystemModel.StudentAssessmentPerformance">
+              <MappingFragment StoreEntitySet="StudentAssessmentPerformance">
+                <ScalarProperty Name="StudentAssessmentPerformanceId" ColumnName="StudentAssessmentPerformanceId" />
+                <ScalarProperty Name="StudentAssessmentId" ColumnName="StudentAssessmentId" />
+                <ScalarProperty Name="Grade" ColumnName="Grade" />
+                <ScalarProperty Name="RegisterDate" ColumnName="RegisterDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="54c084376db240b88c4c966ee738c896" Name="Diagram1">
+        <EntityTypeShape EntityType="AssessmentSystemModel.Assessment" Width="1.5" PointX="7.5" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="AssessmentSystemModel.Person" Width="1.5" PointX="0.75" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="AssessmentSystemModel.Professor" Width="1.5" PointX="3" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="AssessmentSystemModel.Question" Width="1.5" PointX="10.5" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="AssessmentSystemModel.Questionnarie" Width="1.5" PointX="5.25" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AssessmentSystemModel.QuestionOption" Width="1.5" PointX="12.75" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="AssessmentSystemModel.Student" Width="1.5" PointX="3" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="AssessmentSystemModel.StudentAssessment" Width="1.5" PointX="12.75" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="AssessmentSystemModel.StudentAssessmentAnswer" Width="1.5" PointX="15" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="AssessmentSystemModel.StudentAssessmentPerformance" Width="1.5" PointX="15" PointY="12.5" IsExpanded="true" />
+        <AssociationConnector Association="AssessmentSystemModel.FK__Assessmen__Quest__36B12243" ManuallyRouted="false" />
+        <AssociationConnector Association="AssessmentSystemModel.FK__Assessmen__Quest__37A5467C" ManuallyRouted="false" />
+        <AssociationConnector Association="AssessmentSystemModel.FK__StudentAs__EndDa__3B75D760" ManuallyRouted="false" />
+        <AssociationConnector Association="AssessmentSystemModel.FK__Professor__Regis__29572725" ManuallyRouted="false" />
+        <AssociationConnector Association="AssessmentSystemModel.FK__Student__Registe__267ABA7A" ManuallyRouted="false" />
+        <AssociationConnector Association="AssessmentSystemModel.FK__Question__Questi__2F10007B" ManuallyRouted="false" />
+        <AssociationConnector Association="AssessmentSystemModel.FK__Questionn__Profe__2C3393D0" ManuallyRouted="false" />
+        <AssociationConnector Association="AssessmentSystemModel.FK__QuestionO__Quest__32E0915F" ManuallyRouted="false" />
+        <AssociationConnector Association="AssessmentSystemModel.FK__Question__Questi__300424B4" ManuallyRouted="false" />
+        <AssociationConnector Association="AssessmentSystemModel.FK__QuestionO__Quest__33D4B598" ManuallyRouted="false" />
+        <AssociationConnector Association="AssessmentSystemModel.FK__StudentAs__Quest__403A8C7D" ManuallyRouted="false" />
+        <AssociationConnector Association="AssessmentSystemModel.FK__StudentAs__Stude__3C69FB99" ManuallyRouted="false" />
+        <AssociationConnector Association="AssessmentSystemModel.FK__StudentAs__Quest__3F466844" ManuallyRouted="false" />
+        <AssociationConnector Association="AssessmentSystemModel.FK__StudentAs__Regis__4316F928" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
