@@ -10,6 +10,14 @@ namespace AssessmentSystem.MVC.Controllers
     {
         public ActionResult Index()
         {
+            using (var db = new AssessmentSystemEntities())
+            {
+                Assessment assessment = new Assessment();
+                var test = from a in db.Assessments
+                           where a.AssessmentId == 1
+                           select a;
+                var test1 = test.First();
+            }
             return View();
         }
 
