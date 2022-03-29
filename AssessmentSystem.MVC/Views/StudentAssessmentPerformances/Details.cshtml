@@ -1,0 +1,42 @@
+﻿@model AssessmentSystem.MVC.StudentAssessmentPerformance
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>StudentAssessmentPerformance</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Grade)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Grade)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RegisterDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RegisterDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StudentAssessment.StudentAssessmentId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StudentAssessment.StudentAssessmentId)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.StudentAssessmentPerformanceId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

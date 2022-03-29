@@ -1,0 +1,50 @@
+﻿@model AssessmentSystem.MVC.Assessment
+
+@{
+    ViewBag.Title = "Detalhes da avaliação";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Assessment</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RegisterDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RegisterDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Professor.ProfessorId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Professor.ProfessorId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Questionnarie.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Questionnarie.Name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.AssessmentId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
