@@ -16,7 +16,7 @@ namespace AssessmentSystem.API
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Assessment", action = "Get", id = 1 }
+                defaults: new { controller = "Outro", action = "Index", id = UrlParameter.Optional }
             );
         }
     }
