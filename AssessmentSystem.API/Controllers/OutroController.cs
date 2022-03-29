@@ -1,16 +1,18 @@
-﻿using System;
+﻿using AssessmentSystem.MVC;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace AssessmentSystem.MVC.Controllers
+namespace AssessmentSystem.API.Controllers
 {
-    public class HomeController : Controller
+    public class OutroController : Controller
     {
         public ActionResult Index()
         {
-            //Assessment assessment = new Assessment();
+            ViewBag.Title = "Home Page";
+
             using (var db = new AssessmentSystemEntities())
             {
                 var test = from a in db.Assessments
@@ -18,19 +20,6 @@ namespace AssessmentSystem.MVC.Controllers
                            select a;
                 var test1 = test.First();
             }
-            return View();
-        }
-
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
 
             return View();
         }
