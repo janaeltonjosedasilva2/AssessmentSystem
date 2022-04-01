@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace AssessmentSystem.API.Controllers
 {
-    public class OutroController : Controller
+    public class HomeApiController : Controller
     {
         public ActionResult Index()
         {
