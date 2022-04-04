@@ -20,7 +20,7 @@ namespace AssessmentSystem.API
                 defaults: new { id = RouteParameter.Optional }
             );
 
-            //SwaggerConfig.Register();
+            SwaggerConfig.Register();
         }
     }
 }

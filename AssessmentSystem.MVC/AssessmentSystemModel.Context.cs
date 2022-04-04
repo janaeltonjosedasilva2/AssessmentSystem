@@ -35,5 +35,6 @@ namespace AssessmentSystem.MVC
         public virtual DbSet<StudentAssessment> StudentAssessments { get; set; }
         public virtual DbSet<StudentAssessmentAnswer> StudentAssessmentAnswers { get; set; }
         public virtual DbSet<StudentAssessmentPerformance> StudentAssessmentPerformances { get; set; }
+        public virtual DbSet<PersonLogin> PersonLogins { get; set; }
     }
 }

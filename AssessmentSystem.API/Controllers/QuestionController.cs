@@ -18,6 +18,8 @@ namespace AssessmentSystem.API.Controllers
         /// Retorna listagem de questões.
         /// </summary>
         /// <returns>Enumerável de provas.</returns>
+        [HttpGet]
+        [Authorize]
         public IEnumerable<QuestionDTO> GetAll()
         {
             return questionManager.GetAll();
@@ -29,6 +31,7 @@ namespace AssessmentSystem.API.Controllers
         /// <param name="questionDTO"></param>
         /// <returns>Id da prova.</returns>
         [HttpPost]
+        [Authorize]
         public int Create([FromBody] QuestionDTO questionDTO)
         {
             return questionManager.Create(questionDTO);
@@ -40,6 +43,7 @@ namespace AssessmentSystem.API.Controllers
         /// <param name="questionDTO"></param>
         /// <param name="id"></param>
         [HttpPut]
+        [Authorize]
         public void Update([FromBody] QuestionDTO questionDTO, [FromUri] int id)
         {
             questionManager.Update(id, questionDTO);
@@ -50,6 +54,7 @@ namespace AssessmentSystem.API.Controllers
         /// </summary>
         /// <param name="id"></param>
         [HttpDelete]
+        [Authorize]
         public void Delete([FromUri] int id)
         {
             questionManager.Delete(id);

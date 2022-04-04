@@ -19,6 +19,7 @@ namespace AssessmentSystem.MVC
         {
             this.Professors = new HashSet<Professor>();
             this.Students = new HashSet<Student>();
+            this.PersonLogins = new HashSet<PersonLogin>();
         }
     
         public int PersonId { get; set; }
@@ -30,5 +31,7 @@ namespace AssessmentSystem.MVC
         public virtual ICollection<Professor> Professors { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Student> Students { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PersonLogin> PersonLogins { get; set; }
     }
 }

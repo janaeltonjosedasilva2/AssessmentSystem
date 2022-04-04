@@ -160,6 +160,9 @@
     <Compile Include="Person.cs">
       <DependentUpon>AssessmentSystemModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="PersonLogin.cs">
+      <DependentUpon>AssessmentSystemModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Professor.cs">
       <DependentUpon>AssessmentSystemModel.tt</DependentUpon>
     </Compile>
