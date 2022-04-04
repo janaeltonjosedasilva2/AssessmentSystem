@@ -5,7 +5,7 @@ using Swashbuckle.Application;
 using System;
 using System.Xml.XPath;
 
-[assembly: PreApplicationStartMethod(typeof(SwaggerConfig), "Register")]
+//[assembly: PreApplicationStartMethod(typeof(SwaggerConfig), "Register")]
 
 namespace AssessmentSystem.API
 {

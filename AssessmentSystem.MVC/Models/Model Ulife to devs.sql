@@ -27,6 +27,10 @@ IF OBJECT_ID('Questionnarie') IS NOT NULL
 DROP TABLE Questionnarie
 GO
 
+IF OBJECT_ID('PersonLogin') IS NOT NULL
+DROP TABLE PersonLogin
+GO
+
 IF OBJECT_ID('Professor') IS NOT NULL
 DROP TABLE Professor
 GO
@@ -52,8 +56,6 @@ CREATE TABLE Student (
 	StudentId INTEGER PRIMARY KEY IDENTITY(1, 1),
 	PersonId INTEGER NOT NULL,
 	RegisterDate DATETIME NOT NULL
-	--Login
-	--Password
 	FOREIGN KEY (PersonId) REFERENCES Person (PersonId)
 )
 GO
@@ -62,9 +64,18 @@ CREATE TABLE Professor (
 	ProfessorId INTEGER PRIMARY KEY IDENTITY(1, 1),
 	PersonId INTEGER NOT NULL,
 	RegisterDate DATETIME NOT NULL
-	--Login
-	--Password
 	FOREIGN KEY (PersonId) REFERENCES Person (PersonId)
+)
+GO
+
+CREATE TABLE PersonLogin (
+	PersonLoginId INTEGER PRIMARY KEY IDENTITY(1, 1),
+	[Login] VARCHAR(100),
+	[Password] VARCHAR(MAX),
+	PersonId INTEGER NOT NULL,
+	RegisterDate DATETIME NOT NULL
+	FOREIGN KEY (PersonId) REFERENCES Person (PersonId),
+	CONSTRAINT UQ_Login UNIQUE([Login])
 )
 GO
 
@@ -189,6 +200,16 @@ BEGIN
 	('Student 2', '12345678922', GETDATE()),
 	('Student 3', '12345678923', GETDATE())
 
+	INSERT INTO PersonLogin([Login], [Password], PersonId, RegisterDate)
+	SELECT 'Student'+ CAST((ROW_NUMBER() OVER(ORDER BY P.Name)) AS VARCHAR),'123456', PersonId, GETDATE()
+	FROM Person P
+	WHERE CHARINDEX('Student', [Name]) > 0
+
+	INSERT INTO PersonLogin([Login], [Password], PersonId, RegisterDate)
+	SELECT 'Professor'+ CAST((ROW_NUMBER() OVER(ORDER BY P.Name)) AS VARCHAR),'123456', PersonId, GETDATE()
+	FROM Person P
+	WHERE CHARINDEX('Professor', [Name]) > 0
+
 	INSERT INTO Student (PersonId, RegisterDate)
 	SELECT PersonId, GETDATE()
 	FROM Person 
@@ -198,7 +219,7 @@ BEGIN
 	SELECT PersonId, GETDATE()
 	FROM Person 
 	WHERE CHARINDEX('Professor', [Name]) > 0
-
+	
 	INSERT INTO Questionnarie ([Name], RegisterDate, ProfessorId)
 	SELECT 'Questionnarie ' + CAST((ROW_NUMBER() OVER(ORDER BY P.Name)) AS VARCHAR) + ' of ' + P.[Name],
 	GETDATE(),

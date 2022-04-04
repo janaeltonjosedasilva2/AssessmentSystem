@@ -29,6 +29,8 @@
         <AssociationConnector Association="AssessmentSystemModel.FK__StudentAs__Stude__3C69FB99" ManuallyRouted="false" />
         <AssociationConnector Association="AssessmentSystemModel.FK__StudentAs__Quest__3F466844" ManuallyRouted="false" />
         <AssociationConnector Association="AssessmentSystemModel.FK__StudentAs__Regis__4316F928" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="AssessmentSystemModel.PersonLogin" Width="1.5" PointX="3" PointY="12.75" />
+        <AssociationConnector Association="AssessmentSystemModel.FK__PersonLog__Regis__787EE5A0" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

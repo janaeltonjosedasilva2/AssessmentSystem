@@ -17,6 +17,8 @@ namespace AssessmentSystem.API.Controllers
         /// Retorna listagem de questões.
         /// </summary>
         /// <returns>Enumerável de provas.</returns>
+        [HttpGet]
+        [Authorize]
         public IEnumerable<StudentAssessmentPerformanceDTO> GetAll()
         {
             return studentManager.GetAll();

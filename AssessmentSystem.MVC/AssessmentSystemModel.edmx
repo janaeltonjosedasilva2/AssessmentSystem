@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="AssessmentSystemModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="AssessmentSystemModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Assessment">
           <Key>
             <PropertyRef Name="AssessmentId" />
@@ -22,6 +22,16 @@
           <Property Name="PersonId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="500" Nullable="false" />
           <Property Name="CPF" Type="varchar" MaxLength="11" Nullable="false" />
+          <Property Name="RegisterDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PersonLogin">
+          <Key>
+            <PropertyRef Name="PersonLoginId" />
+          </Key>
+          <Property Name="PersonLoginId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Login" Type="varchar" MaxLength="100" />
+          <Property Name="Password" Type="varchar(max)" />
+          <Property Name="PersonId" Type="int" Nullable="false" />
           <Property Name="RegisterDate" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="Professor">
@@ -98,7 +108,7 @@
           <Property Name="Grade" Type="decimal" Precision="18" Scale="0" />
           <Property Name="RegisterDate" Type="datetime" Nullable="false" />
         </EntityType>
-        <Association Name="FK__Assessmen__Quest__36B12243">
+        <Association Name="FK__Assessmen__Quest__05D8E0BE">
           <End Role="Professor" Type="Self.Professor" Multiplicity="1" />
           <End Role="Assessment" Type="Self.Assessment" Multiplicity="*" />
           <ReferentialConstraint>
@@ -110,7 +120,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Assessmen__Quest__37A5467C">
+        <Association Name="FK__Assessmen__Quest__06CD04F7">
           <End Role="Questionnarie" Type="Self.Questionnarie" Multiplicity="1" />
           <End Role="Assessment" Type="Self.Assessment" Multiplicity="*" />
           <ReferentialConstraint>
@@ -122,7 +132,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Professor__Regis__29572725">
+        <Association Name="FK__PersonLog__Regis__787EE5A0">
+          <End Role="Person" Type="Self.Person" Multiplicity="1" />
+          <End Role="PersonLogin" Type="Self.PersonLogin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="PersonId" />
+            </Principal>
+            <Dependent Role="PersonLogin">
+              <PropertyRef Name="PersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Professor__Regis__75A278F5">
           <End Role="Person" Type="Self.Person" Multiplicity="1" />
           <End Role="Professor" Type="Self.Professor" Multiplicity="*" />
           <ReferentialConstraint>
@@ -134,7 +156,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Question__Questi__2F10007B">
+        <Association Name="FK__Question__Questi__7E37BEF6">
           <End Role="Professor" Type="Self.Professor" Multiplicity="1" />
           <End Role="Question" Type="Self.Question" Multiplicity="*" />
           <ReferentialConstraint>
@@ -146,7 +168,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Question__Questi__300424B4">
+        <Association Name="FK__Question__Questi__7F2BE32F">
           <End Role="Questionnarie" Type="Self.Questionnarie" Multiplicity="1" />
           <End Role="Question" Type="Self.Question" Multiplicity="*" />
           <ReferentialConstraint>
@@ -158,7 +180,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Questionn__Profe__2C3393D0">
+        <Association Name="FK__Questionn__Profe__7B5B524B">
           <End Role="Professor" Type="Self.Professor" Multiplicity="1" />
           <End Role="Questionnarie" Type="Self.Questionnarie" Multiplicity="*" />
           <ReferentialConstraint>
@@ -170,7 +192,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__QuestionO__Quest__32E0915F">
+        <Association Name="FK__QuestionO__Quest__02084FDA">
           <End Role="Professor" Type="Self.Professor" Multiplicity="1" />
           <End Role="QuestionOption" Type="Self.QuestionOption" Multiplicity="*" />
           <ReferentialConstraint>
@@ -182,7 +204,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__QuestionO__Quest__33D4B598">
+        <Association Name="FK__QuestionO__Quest__02FC7413">
           <End Role="Question" Type="Self.Question" Multiplicity="1" />
           <End Role="QuestionOption" Type="Self.QuestionOption" Multiplicity="*" />
           <ReferentialConstraint>
@@ -194,7 +216,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Student__Registe__267ABA7A">
+        <Association Name="FK__Student__Registe__72C60C4A">
           <End Role="Person" Type="Self.Person" Multiplicity="1" />
           <End Role="Student" Type="Self.Student" Multiplicity="*" />
           <ReferentialConstraint>
@@ -206,7 +228,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__StudentAs__EndDa__3B75D760">
+        <Association Name="FK__StudentAs__EndDa__0A9D95DB">
           <End Role="Assessment" Type="Self.Assessment" Multiplicity="1" />
           <End Role="StudentAssessment" Type="Self.StudentAssessment" Multiplicity="*" />
           <ReferentialConstraint>
@@ -218,7 +240,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__StudentAs__Quest__3F466844">
+        <Association Name="FK__StudentAs__Quest__0E6E26BF">
           <End Role="StudentAssessment" Type="Self.StudentAssessment" Multiplicity="1" />
           <End Role="StudentAssessmentAnswer" Type="Self.StudentAssessmentAnswer" Multiplicity="*" />
           <ReferentialConstraint>
@@ -230,7 +252,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__StudentAs__Quest__403A8C7D">
+        <Association Name="FK__StudentAs__Quest__0F624AF8">
           <End Role="QuestionOption" Type="Self.QuestionOption" Multiplicity="1" />
           <End Role="StudentAssessmentAnswer" Type="Self.StudentAssessmentAnswer" Multiplicity="*" />
           <ReferentialConstraint>
@@ -242,7 +264,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__StudentAs__Regis__4316F928">
+        <Association Name="FK__StudentAs__Regis__123EB7A3">
           <End Role="StudentAssessment" Type="Self.StudentAssessment" Multiplicity="1" />
           <End Role="StudentAssessmentPerformance" Type="Self.StudentAssessmentPerformance" Multiplicity="*" />
           <ReferentialConstraint>
@@ -254,7 +276,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__StudentAs__Stude__3C69FB99">
+        <Association Name="FK__StudentAs__Stude__0B91BA14">
           <End Role="Student" Type="Self.Student" Multiplicity="1" />
           <End Role="StudentAssessment" Type="Self.StudentAssessment" Multiplicity="*" />
           <ReferentialConstraint>
@@ -269,6 +291,7 @@
         <EntityContainer Name="AssessmentSystemModelStoreContainer">
           <EntitySet Name="Assessment" EntityType="Self.Assessment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Person" EntityType="Self.Person" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PersonLogin" EntityType="Self.PersonLogin" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Professor" EntityType="Self.Professor" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Question" EntityType="Self.Question" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Questionnarie" EntityType="Self.Questionnarie" Schema="dbo" store:Type="Tables" />
@@ -277,65 +300,68 @@
           <EntitySet Name="StudentAssessment" EntityType="Self.StudentAssessment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StudentAssessmentAnswer" EntityType="Self.StudentAssessmentAnswer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StudentAssessmentPerformance" EntityType="Self.StudentAssessmentPerformance" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__Assessmen__Quest__36B12243" Association="Self.FK__Assessmen__Quest__36B12243">
+          <AssociationSet Name="FK__Assessmen__Quest__05D8E0BE" Association="Self.FK__Assessmen__Quest__05D8E0BE">
             <End Role="Professor" EntitySet="Professor" />
             <End Role="Assessment" EntitySet="Assessment" />
           </AssociationSet>
-          <AssociationSet Name="FK__Assessmen__Quest__37A5467C" Association="Self.FK__Assessmen__Quest__37A5467C">
+          <AssociationSet Name="FK__Assessmen__Quest__06CD04F7" Association="Self.FK__Assessmen__Quest__06CD04F7">
             <End Role="Questionnarie" EntitySet="Questionnarie" />
             <End Role="Assessment" EntitySet="Assessment" />
           </AssociationSet>
-          <AssociationSet Name="FK__Professor__Regis__29572725" Association="Self.FK__Professor__Regis__29572725">
+          <AssociationSet Name="FK__PersonLog__Regis__787EE5A0" Association="Self.FK__PersonLog__Regis__787EE5A0">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="PersonLogin" EntitySet="PersonLogin" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Professor__Regis__75A278F5" Association="Self.FK__Professor__Regis__75A278F5">
             <End Role="Person" EntitySet="Person" />
             <End Role="Professor" EntitySet="Professor" />
           </AssociationSet>
-          <AssociationSet Name="FK__Question__Questi__2F10007B" Association="Self.FK__Question__Questi__2F10007B">
+          <AssociationSet Name="FK__Question__Questi__7E37BEF6" Association="Self.FK__Question__Questi__7E37BEF6">
             <End Role="Professor" EntitySet="Professor" />
             <End Role="Question" EntitySet="Question" />
           </AssociationSet>
-          <AssociationSet Name="FK__Question__Questi__300424B4" Association="Self.FK__Question__Questi__300424B4">
+          <AssociationSet Name="FK__Question__Questi__7F2BE32F" Association="Self.FK__Question__Questi__7F2BE32F">
             <End Role="Questionnarie" EntitySet="Questionnarie" />
             <End Role="Question" EntitySet="Question" />
           </AssociationSet>
-          <AssociationSet Name="FK__Questionn__Profe__2C3393D0" Association="Self.FK__Questionn__Profe__2C3393D0">
+          <AssociationSet Name="FK__Questionn__Profe__7B5B524B" Association="Self.FK__Questionn__Profe__7B5B524B">
             <End Role="Professor" EntitySet="Professor" />
             <End Role="Questionnarie" EntitySet="Questionnarie" />
           </AssociationSet>
-          <AssociationSet Name="FK__QuestionO__Quest__32E0915F" Association="Self.FK__QuestionO__Quest__32E0915F">
+          <AssociationSet Name="FK__QuestionO__Quest__02084FDA" Association="Self.FK__QuestionO__Quest__02084FDA">
             <End Role="Professor" EntitySet="Professor" />
             <End Role="QuestionOption" EntitySet="QuestionOption" />
           </AssociationSet>
-          <AssociationSet Name="FK__QuestionO__Quest__33D4B598" Association="Self.FK__QuestionO__Quest__33D4B598">
+          <AssociationSet Name="FK__QuestionO__Quest__02FC7413" Association="Self.FK__QuestionO__Quest__02FC7413">
             <End Role="Question" EntitySet="Question" />
             <End Role="QuestionOption" EntitySet="QuestionOption" />
           </AssociationSet>
-          <AssociationSet Name="FK__Student__Registe__267ABA7A" Association="Self.FK__Student__Registe__267ABA7A">
+          <AssociationSet Name="FK__Student__Registe__72C60C4A" Association="Self.FK__Student__Registe__72C60C4A">
             <End Role="Person" EntitySet="Person" />
             <End Role="Student" EntitySet="Student" />
           </AssociationSet>
-          <AssociationSet Name="FK__StudentAs__EndDa__3B75D760" Association="Self.FK__StudentAs__EndDa__3B75D760">
+          <AssociationSet Name="FK__StudentAs__EndDa__0A9D95DB" Association="Self.FK__StudentAs__EndDa__0A9D95DB">
             <End Role="Assessment" EntitySet="Assessment" />
             <End Role="StudentAssessment" EntitySet="StudentAssessment" />
           </AssociationSet>
-          <AssociationSet Name="FK__StudentAs__Quest__3F466844" Association="Self.FK__StudentAs__Quest__3F466844">
+          <AssociationSet Name="FK__StudentAs__Quest__0E6E26BF" Association="Self.FK__StudentAs__Quest__0E6E26BF">
             <End Role="StudentAssessment" EntitySet="StudentAssessment" />
             <End Role="StudentAssessmentAnswer" EntitySet="StudentAssessmentAnswer" />
           </AssociationSet>
-          <AssociationSet Name="FK__StudentAs__Quest__403A8C7D" Association="Self.FK__StudentAs__Quest__403A8C7D">
+          <AssociationSet Name="FK__StudentAs__Quest__0F624AF8" Association="Self.FK__StudentAs__Quest__0F624AF8">
             <End Role="QuestionOption" EntitySet="QuestionOption" />
             <End Role="StudentAssessmentAnswer" EntitySet="StudentAssessmentAnswer" />
           </AssociationSet>
-          <AssociationSet Name="FK__StudentAs__Regis__4316F928" Association="Self.FK__StudentAs__Regis__4316F928">
+          <AssociationSet Name="FK__StudentAs__Regis__123EB7A3" Association="Self.FK__StudentAs__Regis__123EB7A3">
             <End Role="StudentAssessment" EntitySet="StudentAssessment" />
             <End Role="StudentAssessmentPerformance" EntitySet="StudentAssessmentPerformance" />
           </AssociationSet>
-          <AssociationSet Name="FK__StudentAs__Stude__3C69FB99" Association="Self.FK__StudentAs__Stude__3C69FB99">
+          <AssociationSet Name="FK__StudentAs__Stude__0B91BA14" Association="Self.FK__StudentAs__Stude__0B91BA14">
             <End Role="Student" EntitySet="Student" />
             <End Role="StudentAssessment" EntitySet="StudentAssessment" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="AssessmentSystemModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -362,6 +388,7 @@
           <Property Name="RegisterDate" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Professors" Relationship="Self.FK__Professor__Regis__29572725" FromRole="Person" ToRole="Professor" />
           <NavigationProperty Name="Students" Relationship="Self.FK__Student__Registe__267ABA7A" FromRole="Person" ToRole="Student" />
+          <NavigationProperty Name="PersonLogins" Relationship="AssessmentSystemModel.FK__PersonLog__Regis__787EE5A0" FromRole="Person" ToRole="PersonLogin" />
         </EntityType>
         <EntityType Name="Professor">
           <Key>
@@ -695,7 +722,35 @@
             <End Role="StudentAssessment" EntitySet="StudentAssessments" />
             <End Role="StudentAssessmentPerformance" EntitySet="StudentAssessmentPerformances" />
           </AssociationSet>
+          <EntitySet Name="PersonLogins" EntityType="AssessmentSystemModel.PersonLogin" />
+          <AssociationSet Name="FK__PersonLog__Regis__787EE5A0" Association="AssessmentSystemModel.FK__PersonLog__Regis__787EE5A0">
+            <End Role="Person" EntitySet="People" />
+            <End Role="PersonLogin" EntitySet="PersonLogins" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="PersonLogin">
+          <Key>
+            <PropertyRef Name="PersonLoginId" />
+          </Key>
+          <Property Name="PersonLoginId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Login" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="PersonId" Type="Int32" Nullable="false" />
+          <Property Name="RegisterDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Person" Relationship="AssessmentSystemModel.FK__PersonLog__Regis__787EE5A0" FromRole="PersonLogin" ToRole="Person" />
+        </EntityType>
+        <Association Name="FK__PersonLog__Regis__787EE5A0">
+          <End Type="AssessmentSystemModel.Person" Role="Person" Multiplicity="1" />
+          <End Type="AssessmentSystemModel.PersonLogin" Role="PersonLogin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="PersonId" />
+            </Principal>
+            <Dependent Role="PersonLogin">
+              <PropertyRef Name="PersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -802,6 +857,17 @@
                 <ScalarProperty Name="StudentAssessmentId" ColumnName="StudentAssessmentId" />
                 <ScalarProperty Name="Grade" ColumnName="Grade" />
                 <ScalarProperty Name="RegisterDate" ColumnName="RegisterDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PersonLogins">
+            <EntityTypeMapping TypeName="AssessmentSystemModel.PersonLogin">
+              <MappingFragment StoreEntitySet="PersonLogin">
+                <ScalarProperty Name="RegisterDate" ColumnName="RegisterDate" />
+                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="PersonLoginId" ColumnName="PersonLoginId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
