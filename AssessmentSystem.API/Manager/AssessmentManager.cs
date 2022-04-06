@@ -22,6 +22,22 @@ namespace AssessmentSystem.MVC.Manager
             }
         }
 
+        internal AssessmentDTO GetById(int id)
+        {
+            using (var db = new AssessmentSystemEntities())
+            {
+                return (from a in db.Assessments
+                        where a.AssessmentId == id
+                        select new { a.Name, a.ProfessorId, a.QuestionnarieId })
+                        .Select(x => new AssessmentDTO
+                        {
+                            Name = x.Name,
+                            ProfessorId = x.ProfessorId,
+                            QuestionnarieId = x.QuestionnarieId
+                        }).FirstOrDefault();
+            }
+        }
+
         public void Delete(int id)
         {
             using (var db = new AssessmentSystemEntities())

@@ -15,18 +15,18 @@ namespace AssessmentSystem.API
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            // Set Swagger as default start page
-            routes.MapHttpRoute(
-                name: "swagger_root",
-                routeTemplate: "",
-                defaults: null,
-                constraints: null,
-                handler: new RedirectHandler((message => message.RequestUri.ToString()), "swagger"));
+            //// Set Swagger as default start page
+            //routes.MapHttpRoute(
+            //    name: "swagger_root",
+            //    routeTemplate: "",
+            //    defaults: null,
+            //    constraints: null,
+            //    handler: new RedirectHandler((message => message.RequestUri.ToString()), "swagger"));
 
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "HomeApi", action = "Index", id = UrlParameter.Optional }
             );
         }
     }
