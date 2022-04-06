@@ -8,18 +8,71 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using AssessmentSystem.MVC;
+using System.Net.Http;
 
 namespace AssessmentSystem.MVC.Controllers
 {
     public class AssessmentsController : Controller
     {
+        private const string urlApi = "http://localhost:64629/API/Assessment";
         private AssessmentSystemEntities db = new AssessmentSystemEntities();
+
+        public class Person
+        {
+            public string Name { get; set; }
+            public DateTime DateTime { get; set; }
+        }
 
         // GET: Assessments
         public async Task<ActionResult> Index()
         {
+
+
             var assessments = db.Assessments.Include(a => a.Professor).Include(a => a.Questionnarie);
             return View(await assessments.ToListAsync());
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> GetByIdAsync(string Id)
+        {
+            if(Id == null)
+                return Json(null);
+
+            string result = string.Empty;
+
+            string url = string.Format(urlApi+"/{0}", Id);
+
+            using (HttpClient client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(url);
+                HttpResponseMessage response = await client.GetAsync(url);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    result = await response.Content.ReadAsStringAsync();
+                }
+            }
+
+            return Json(result);
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> GetAllAsync()
+        {
+            string result = string.Empty;
+
+            using (HttpClient client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(urlApi);
+                HttpResponseMessage response = await client.GetAsync(urlApi);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    result = await response.Content.ReadAsStringAsync();
+                }
+            }
+
+            return Json(result);
         }
 
         // GET: Assessments/Details/5

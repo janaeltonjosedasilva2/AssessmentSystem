@@ -16,10 +16,19 @@ namespace AssessmentSystem.API.Controllers
         /// </summary>
         /// <returns>Enumerável de provas.</returns>
         [HttpGet]
-        [Authorize]
         public IEnumerable<AssessmentDTO> GetAll()
         {
             return assessmentManager.GetAll();
+        }
+
+        /// <summary>
+        /// Retorna listagem de provas por Id.
+        /// </summary>
+        /// <returns>Prova.</returns>
+        [HttpGet]
+        public AssessmentDTO Get([FromUri] int id)
+        {
+            return assessmentManager.GetById(id);
         }
 
         /// <summary>

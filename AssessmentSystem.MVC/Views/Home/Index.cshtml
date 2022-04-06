@@ -8,7 +8,11 @@
     <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
 </div>
 
-<div class="row">
+@*<div ng-controller="HomeController">
+    {{Message}}
+</div>*@
+
+@*<div class="row">
     <div class="col-md-4">
         <h2>Getting started</h2>
         <p>
@@ -28,4 +32,36 @@
         <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
         <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
     </div>
+</div>*@
+<div @*ng-app="Assessment"*@ ng-controller="AssessmentCtrl">
+    Name:
+    <input type="text" ng-model="Id" />
+    <br />
+    <br />
+    <input type="button" value="LoadAssessments" ng-click="ButtonClick()" />
+
+    <table class="ltTable">
+        <thead>
+        <th>Name</th>
+        <th>ProfessorId</th>
+        <th>QuestionnarieId</th>
+        </thead>
+        <tbody>
+            @*Iterar uma lista*@
+            <tr ng-repeat="item in AssessmentList">
+                <td>{{item.Name}}</td>
+                <td>{{item.ProfessorId}}</td>
+                <td>{{item.QuestionnarieId}}</td>
+            </tr>
+
+            @*Para returno de um item só*@
+            @*<tr>
+                <td>{{AssessmentList.Name}}</td>
+                <td>{{AssessmentList.ProfessorId}}</td>
+                <td>{{AssessmentList.QuestionnarieId}}</td>
+            </tr>*@
+        </tbody>
+    </table>
+    <br />
+    {{Message}}
 </div>
